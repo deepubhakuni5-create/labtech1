@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo 'Pulling website code...'
-                git branch: 'main', credentialsId: 'github-token', url: ' https://github.com/deepubhakuni5-create/labtech1.git
+                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/deepubhakuni5-create/labtech1.git'
             }
         }
 
@@ -20,9 +20,9 @@ pipeline {
         stage('Run Container') {
             steps {
                 powershell """
-                    docker stop  Newimage>\$null
-                    docker rm  Newimage>\$null
-                    docker run -d --name deepu -p 5553:80  Newimage:latest
+                    docker stop Newimage > \$null 2>&1
+                    docker rm Newimage > \$null 2>&1
+                    docker run -d --name deepu -p 5553:80 Newimage:latest
                 """
             }
         }
@@ -30,7 +30,7 @@ pipeline {
 
     post {
         success {
-            echo "Website running at: http://localhost:7090"
+            echo "Website running at: http://localhost:5553"
         }
     }
 }
